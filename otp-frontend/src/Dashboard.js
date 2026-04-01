@@ -1,17 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 function Dashboard() {
-  const navigate = useNavigate();
-
-  const logout = () => {
-    localStorage.removeItem("userEmail");
-    navigate("/");
-  };
+  const [input, setInput] = useState("");
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Welcome to Dashboard 🎉</h1>
-      <button onClick={logout}>Logout</button>
+    <div>
+      <h2>Dashboard</h2>
+
+      <input
+        type="text"
+        placeholder="Enter something"
+        onChange={(e) => setInput(e.target.value)}
+      />
+
+      <h3>Output:</h3>
+
+      {/* Unsafe (XSS vulnerable) */}
+      <div dangerouslySetInnerHTML={{ __html: input }} />
     </div>
   );
 }
